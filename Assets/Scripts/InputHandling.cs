@@ -8,7 +8,7 @@ public class InputHandling : MonoBehaviour
     
     public void identifyInput()
     {
-        if (Input.anyKeyDown)
+        if (Input.anyKey)
         {
 
             processInput();
@@ -20,33 +20,39 @@ public class InputHandling : MonoBehaviour
 
     public string processInput()
     {
-
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            character.addVelo(-1);
-            return "Left";
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            character.addVelo(1);
-            return "Right";
-        }
-        else if (Input.GetKey(KeyCode.Space)){
+        if (Input.GetKeyDown(KeyCode.Space)){
 
             character.ifGroundedExecuteJump();
             
             return "Jump";
         }
+
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            character.velocitySolver(-1);
+            return "Left";
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            character.velocitySolver(1);
+            return "Right";
+        }
+        else if (Input.GetKey(KeyCode.S)){
+            character.dropDown();
+            return "Down";
+        }
+
         else if (Input.GetKey(KeyCode.P)){
             return "Pause";
         }
         else if (Input.GetKey(KeyCode.KeypadEnter)){
             return "Enter";
         }
-        else{
-            return "Not Acknowledged Input";
-        }
+
+
+
+        return "Unknown Input";
         
     }
 

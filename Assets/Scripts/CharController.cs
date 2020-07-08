@@ -9,6 +9,9 @@ public class CharController : MonoBehaviour
     public float amountToAccelerate; //rewrite this as a function that is dependent on the existing velocity, 
     InputHandling handleInput;
     public float jumpHeight;
+    public float maxAcceleration;
+
+    Rigidbody rb;
 
     void changeDirection()
     {
@@ -18,14 +21,19 @@ public class CharController : MonoBehaviour
 
 
 
-    public void addVelo(int lORr)
-    {
+    public void velocitySolver(int lORr){
+        Vector3 valToReturn = new Vector3(0,0,0);
 
-        GetComponent<Rigidbody>().velocity += new Vector3(amountToAccelerate * Time.deltaTime * lORr, 0, 0);
+        if (Mathf.Abs(GetComponent<Rigidbody>().velocity.x) >= maxAcceleration){
+            rb.velocity += new Vector3(0,0,0);
+        }
+        else{
+            rb.velocity += new Vector3(amountToAccelerate * Time.deltaTime * lORr, 0, 0);
+        }      
     }
 
     void triggerChangeDirection(){
-        if((facingRight && GetComponent<Rigidbody>().velocity.x<0)||(!facingRight && GetComponent<Rigidbody>().velocity.x>0)){
+        if((facingRight && rb.velocity.x<0)||(!facingRight && rb.velocity.x>0)){
             changeDirection();
         }
     }
@@ -56,14 +64,16 @@ public class CharController : MonoBehaviour
     }
     public void jump(){
         
-        GetComponent<Rigidbody>().velocity+= new Vector3(0,jumpHeight*Time.deltaTime,0);
-        
+        rb.AddForce(transform.up*jumpHeight);
     }
 
     public void ifGroundedExecuteJump(){
         if(checkGrounded()){
             jump();
         }
+    }
+    public void dropDown(){
+        rb.AddForce(-transform.up*jumpHeight/10);
     }
 
 
@@ -73,14 +83,9 @@ public class CharController : MonoBehaviour
     void Start()
     {
         handleInput= GameObject.Find("GameManager").GetComponent<InputHandling>();
+        rb = GetComponent<Rigidbody>();
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
-        Debug.Log(checkGrounded());
- 
-    }
 }
