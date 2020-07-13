@@ -20,22 +20,17 @@ public class InputHandling : MonoBehaviour
 
     public string processInput()
     {
-        if (Input.GetKeyDown(KeyCode.Space)){
-
-            character.ifGroundedExecuteJump();
-            
-            return "Jump";
-        }
-
-
         if (Input.GetKey(KeyCode.A))
         {
             character.velocitySolver(-1);
+            character.facingRight= false;
+            
             return "Left";
         }
         else if (Input.GetKey(KeyCode.D))
         {
             character.velocitySolver(1);
+            character.facingRight = true;
             return "Right";
         }
         else if (Input.GetKey(KeyCode.S)){
