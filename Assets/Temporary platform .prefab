@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4726647999788278441}
   - component: {fileID: 4726647999788278440}
   - component: {fileID: 4726647999788278439}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: 'Temporary platform '
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

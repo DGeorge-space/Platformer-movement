@@ -16,7 +16,7 @@ public class FollowPlayer : MonoBehaviour
 
     void followPlayer(){
         playerPos = GameObject.Find("Player").transform.position;
-        transform.position = new Vector3(playerPos.x,transform.position.y,transform.position.z);
+        transform.position = new Vector3(playerPos.x,playerPos.y,transform.position.z);
     }
     // Update is called once per frame
     void Update()
